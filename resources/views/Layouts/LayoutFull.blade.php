@@ -54,6 +54,7 @@
     </ol>
     <div class="container-fluid">
         @yield('conteudo')
+        @yield('conteudo2')
         <footer class="footer">
             <div class="row align-items-center justify-content-xl-between">
                 <div class="col-6">
