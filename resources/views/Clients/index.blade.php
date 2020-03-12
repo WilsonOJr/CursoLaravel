@@ -4,28 +4,38 @@
 
 @endpush
 @section('conteudo')
-    <form action=''>
-        <div style='text-align:center;'>
-            <div>
-                <label>
-                    Nome:
-                </label>
-                <input type='text'>
-                <label>
-                    CPF:
-                </label>
-                <input id='cpf' name='cpf' type='text' class='cpf-mask'>
-            </div>
-            </br>
-            <label>
-                Endereço:
-            </label>
-            <input type='text'>
-        </div>
-        <div style='text-align:center;'>
-            <input type='Submit' class='btn btn-danger'></input>
-        </div>
-    </form>
+<div>
+    <a href="{{ route('clients.create') }}" class="btn btn-success mb-2">
+        <i class="far fa-plus-square mr-1"></i> Adicionar
+    </a>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Email</th>
+            <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach($clients as $client)
+                    <tr>
+                        <th scope="row">{{$client->id}}</th>
+                        <td>{{$client->cpf}}</td>
+                        <td>{{$client->name}}</td>
+                        <td>{{$client->email}}</td>
+                        <td>
+                            <button class='btn btn-primary btn-sm'>Editar</button>
+                            <button class='btn btn-danger btn-sm'>Excluir</button>
+                        </td>
+                    </tr>
+                @endforeach
+        </tbody>
+    </table>
+</div>
 @endsection
 @push('scripts')
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">

@@ -1,0 +1,6 @@
+<form action="{{isset($product->code) ? route('products.update', ['id' => $product->code]) : route('products.store') }}"
+                  class="form-horizontal form-validate" enctype="multipart/form-data" method="POST">
+                {{csrf_field() }}
+                @if (isset($product->code))
+                    @method('PUT')
+                @endif
