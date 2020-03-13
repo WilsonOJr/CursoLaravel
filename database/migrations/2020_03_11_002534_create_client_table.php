@@ -17,7 +17,7 @@ class CreateClientTable extends Migration
             $table->unsignedBigInteger('id',true);
             $table->string('name');
             $table->string('email');
-            $table->integer('cpf');
+            $table->bigInteger('cpf');
             $table->boolean('active_flag')->default(true);
             $table->string('endereco')->nullable();
             $table->timestamps();

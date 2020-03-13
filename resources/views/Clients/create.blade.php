@@ -4,37 +4,46 @@
 
 @endpush
 @section('conteudo')
-<form action="{{route('clients.store') }}"
-                  class="form-horizontal form-validate" enctype="multipart/form-data" method="POST">
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+<form method="POST" action="{{route('clients.store') }}"
+                  class="form-horizontal form-validate">
                 {{csrf_field() }}
         <div style='text-align:center;'>
             <div>
             <label>
                 Ativo?
             </label>
-            <input type='checkbox'>
+            <input id='activebox' name='activebox' type='checkbox' value='{{old("activebox")}}'>
             <br>
                 <label>
                     Nome:
                 </label>
-                <input type='text'>
+                <input id='name' name='name' required type='text' value='{{old("name")}}'>
                 <label>
                     CPF:
                 </label>
-                <input id='cpf' name='cpf' type='text' class='cpf-mask'>
+                <input id='cpf' name='cpf' type='text' class='cpf-mask' value='{{old("cpf")}}'>
             </div>
             </br>
             <label>
                 Email:
             </label>
-            <input type='text'>
+            <input id='email' name='email' type='text' value='{{old("email")}}'>
             <label>
                 Endereço:
             </label>
-            <input type='text'>
+            <input id='endereco' name='endereco' type='text' value='{{old("endereco")}}'>
         </div>
         <div style='text-align:center;'>
-            <input type='Submit' class='btn btn-danger'></input>
+            <button type='Submit' class='btn btn-success'>Cadastrar</button>
         </div>
     </form>
 @endsection
