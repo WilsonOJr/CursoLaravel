@@ -29,8 +29,15 @@
                         <td>{{$client->name}}</td>
                         <td>{{$client->email}}</td>
                         <td>
-                            <button class='btn btn-primary btn-sm'>Editar</button>
-                            <button class='btn btn-danger btn-sm'>Excluir</button>
+                            <a href="{{ route('clients.edit',[ $client->id]) }}" class="btn btn-primary btn-sm text-white">
+                                    <i class="fal fa-pencil"></i>
+                                    <span class='d-none d-md-inline'> Editar</span>
+                                </a>
+                            <span data-url="{{ route('clients.destroy',[ $client->id]) }}" data-idClient='{{ $client->id}}' 
+                            class="btn btn-warning btn-sm text-white deleteButton">
+                                <i class="fal fa-trash"></i>
+                                <span class='d-none d-md-inline'> Deletar</span>
+                            </span>
                         </td>
                     </tr>
                 @endforeach
@@ -47,8 +54,34 @@
     <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
 <script>
         $(".cpf-mask").mask('000.000.000-00');
-        @if(Session::has('success'))
-            alert('sucesso');
-        @endif
+    $('.deleteButton').on('click', function (e) {
+        var url = $(this).data('url');
+        var idClient = $(this).data('idClient');
+	    $.ajaxSetup({
+            headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+            method: 'DELETE',
+            url: url
+        });
+        $.ajax({
+            data: {
+                'idClient': idClient,
+            },
+            success: function (data) {
+                console.log(data);
+                if (data['status'] ?? '' == 'success') {
+                    if (data['reload'] ?? '') {
+                        location.reload();
+                    }
+                } else {
+                   console.log('error');
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
+
 </script>
 @endpush
